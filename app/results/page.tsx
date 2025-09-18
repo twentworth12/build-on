@@ -30,7 +30,7 @@ export default function ResultsPage() {
       }
 
       // Count votes for each option
-      const voteCounts = { 1: 0, 2: 0, 3: 0 }
+      const voteCounts: { [key: number]: number } = { 1: 0, 2: 0, 3: 0 }
       if (data && Array.isArray(data)) {
         data.forEach((vote) => {
           if (vote.option_id >= 1 && vote.option_id <= 3) {
@@ -83,8 +83,8 @@ export default function ResultsPage() {
         }, 
         () => {
           // Debounce updates
-          clearTimeout(window.resultsUpdateTimeout)
-          window.resultsUpdateTimeout = setTimeout(() => {
+          clearTimeout((window as any).resultsUpdateTimeout)
+          ;(window as any).resultsUpdateTimeout = setTimeout(() => {
             loadResults()
           }, 1000)
         }

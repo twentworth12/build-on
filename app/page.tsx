@@ -26,18 +26,23 @@ export default function VotingPage() {
   const generateFingerprint = () => {
     const canvas = document.createElement('canvas')
     const ctx = canvas.getContext('2d')
-    ctx.textBaseline = 'top'
-    ctx.font = '14px Arial'
-    ctx.fillText('Device fingerprint', 2, 2)
-    
+    let canvasData = ''
+
+    if (ctx) {
+      ctx.textBaseline = 'top'
+      ctx.font = '14px Arial'
+      ctx.fillText('Device fingerprint', 2, 2)
+      canvasData = canvas.toDataURL()
+    }
+
     const fingerprint = [
       navigator.userAgent,
       navigator.language,
       screen.width + 'x' + screen.height,
       new Date().getTimezoneOffset(),
-      canvas.toDataURL()
+      canvasData
     ].join('|')
-    
+
     // Create a simple hash
     let hash = 0
     for (let i = 0; i < fingerprint.length; i++) {
@@ -101,8 +106,8 @@ export default function VotingPage() {
         }, 
         () => {
           // Debounce vote count updates to prevent excessive API calls
-          clearTimeout(window.voteUpdateTimeout)
-          window.voteUpdateTimeout = setTimeout(() => {
+          clearTimeout((window as any).voteUpdateTimeout)
+          ;(window as any).voteUpdateTimeout = setTimeout(() => {
             loadVoteCounts()
           }, 500) // Wait 500ms before updating
         }
@@ -128,7 +133,7 @@ export default function VotingPage() {
       }
 
       // Count votes for each option
-      const voteCounts = { 1: 0, 2: 0, 3: 0 }
+      const voteCounts: { [key: number]: number } = { 1: 0, 2: 0, 3: 0 }
       if (data && Array.isArray(data)) {
         data.forEach((vote) => {
           if (vote.option_id >= 1 && vote.option_id <= 3) {
