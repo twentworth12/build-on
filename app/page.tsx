@@ -16,7 +16,7 @@ export default function VotingPage() {
     { id: 2, title: 'Alexa Incident Commander', description: 'Voice-powered incident management assistant using Alexa and incident.io. Get real-time incident status updates through natural voice commands. Perfect for hands-free operation during war rooms and on-call situations.', votes: 0 },
     { id: 3, title: 'Incident Scorecard Check', description: 'Analyzes incidents and their impact on service scorecard scores. Integrates Incident.io with Cortex.io to correlate incidents with service performance metrics. Generates comprehensive reports on operational readiness and security impacts.', votes: 0 },
     { id: 4, title: 'Heatmap Monitoring Dashboard', description: 'Real-time incident management dashboard with advanced heatmap visualization. Features SLA monitoring with countdown timers, active incident board, and comprehensive analytics for service impact and team workload distribution.', votes: 0 },
-    { id: 5, title: 'Project 5', description: 'This is the fifth project option. Description to be updated.', votes: 0 }
+    { id: 5, title: 'WARP Bot', description: 'Severance-inspired Slack bot that sends mandatory wellness interventions to incident responders. Features emoji-based wellness options like Mammalians Nurturable and Music Dance Experience. Because The Board cares about your tempers.', votes: 0 }
   ])
 
   const [hasVoted, setHasVoted] = useState(false)
@@ -250,7 +250,7 @@ export default function VotingPage() {
                      option.id === 2 ? 'AIC' :
                      option.id === 3 ? 'ISC' :
                      option.id === 4 ? 'HMD' :
-                     option.id === 5 ? 'P5' :
+                     option.id === 5 ? 'WB' :
                      option.title}
                   </span>
                 </div>
@@ -267,13 +267,13 @@ export default function VotingPage() {
                   ) : option.id === 4 ? (
                     <>Heatmap Monitoring<br />Dashboard</>
                   ) : option.id === 5 ? (
-                    <>Project<br />5</>
+                    <>WARP<br />Bot</>
                   ) : (
                     option.title
                   )}
                 </h2>
                 <p>{option.description}</p>
-                {option.id <= 4 && (
+                {option.id <= 5 && (
                   <a
                     href={
                       option.id === 1
@@ -282,7 +282,9 @@ export default function VotingPage() {
                         ? "https://github.com/diverheart/alexa-incident-commander"
                         : option.id === 3
                         ? "https://github.com/realpdm/incident-scorecard-check"
-                        : "https://github.com/Drax54/incident-io-heatmap-monitoring"
+                        : option.id === 4
+                        ? "https://github.com/Drax54/incident-io-heatmap-monitoring"
+                        : "https://github.com/emilyjans/warp"
                     }
                     target="_blank"
                     rel="noopener noreferrer"

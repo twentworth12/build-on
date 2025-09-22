@@ -65,7 +65,7 @@ export default function ResultsPage() {
           percentage: total > 0 ? Math.round((voteCounts[4] / total) * 100) : 0
         },
         {
-          name: 'Project 5',
+          name: 'WARP Bot',
           votes: voteCounts[5],
           percentage: total > 0 ? Math.round((voteCounts[5] / total) * 100) : 0
         }
