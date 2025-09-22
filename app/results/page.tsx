@@ -30,34 +30,44 @@ export default function ResultsPage() {
       }
 
       // Count votes for each option
-      const voteCounts: { [key: number]: number } = { 1: 0, 2: 0, 3: 0 }
+      const voteCounts: { [key: number]: number } = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
       if (data && Array.isArray(data)) {
         data.forEach((vote) => {
-          if (vote.option_id >= 1 && vote.option_id <= 3) {
+          if (vote.option_id >= 1 && vote.option_id <= 5) {
             voteCounts[vote.option_id] = (voteCounts[vote.option_id] || 0) + 1
           }
         })
       }
 
-      const total = voteCounts[1] + voteCounts[2] + voteCounts[3]
+      const total = voteCounts[1] + voteCounts[2] + voteCounts[3] + voteCounts[4] + voteCounts[5]
       setTotalVotes(total)
 
       // Format data for chart
       const formattedData = [
-        { 
-          name: 'Option 1', 
-          votes: voteCounts[1], 
-          percentage: total > 0 ? Math.round((voteCounts[1] / total) * 100) : 0 
+        {
+          name: 'Calendar Conflicts',
+          votes: voteCounts[1],
+          percentage: total > 0 ? Math.round((voteCounts[1] / total) * 100) : 0
         },
-        { 
-          name: 'Option 2', 
-          votes: voteCounts[2], 
-          percentage: total > 0 ? Math.round((voteCounts[2] / total) * 100) : 0 
+        {
+          name: 'Alexa Commander',
+          votes: voteCounts[2],
+          percentage: total > 0 ? Math.round((voteCounts[2] / total) * 100) : 0
         },
-        { 
-          name: 'Option 3', 
-          votes: voteCounts[3], 
-          percentage: total > 0 ? Math.round((voteCounts[3] / total) * 100) : 0 
+        {
+          name: 'Scorecard Check',
+          votes: voteCounts[3],
+          percentage: total > 0 ? Math.round((voteCounts[3] / total) * 100) : 0
+        },
+        {
+          name: 'Heatmap Dashboard',
+          votes: voteCounts[4],
+          percentage: total > 0 ? Math.round((voteCounts[4] / total) * 100) : 0
+        },
+        {
+          name: 'Project 5',
+          votes: voteCounts[5],
+          percentage: total > 0 ? Math.round((voteCounts[5] / total) * 100) : 0
         }
       ]
 

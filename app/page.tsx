@@ -14,7 +14,9 @@ export default function VotingPage() {
   const [options, setOptions] = useState<Option[]>([
     { id: 1, title: 'Calendar Conflicts Reporter', description: 'Automatically detects conflicts between on-call schedules and calendar events. Identifies when on-call personnel have scheduled time off and suggests replacements. Supports incident.io integration with Slack and email notifications.', votes: 0 },
     { id: 2, title: 'Alexa Incident Commander', description: 'Voice-powered incident management assistant using Alexa and incident.io. Get real-time incident status updates through natural voice commands. Perfect for hands-free operation during war rooms and on-call situations.', votes: 0 },
-    { id: 3, title: 'Incident Scorecard Check', description: 'Analyzes incidents and their impact on service scorecard scores. Integrates Incident.io with Cortex.io to correlate incidents with service performance metrics. Generates comprehensive reports on operational readiness and security impacts.', votes: 0 }
+    { id: 3, title: 'Incident Scorecard Check', description: 'Analyzes incidents and their impact on service scorecard scores. Integrates Incident.io with Cortex.io to correlate incidents with service performance metrics. Generates comprehensive reports on operational readiness and security impacts.', votes: 0 },
+    { id: 4, title: 'Heatmap Monitoring Dashboard', description: 'Real-time incident management dashboard with advanced heatmap visualization. Features SLA monitoring with countdown timers, active incident board, and comprehensive analytics for service impact and team workload distribution.', votes: 0 },
+    { id: 5, title: 'Project 5', description: 'This is the fifth project option. Description to be updated.', votes: 0 }
   ])
 
   const [hasVoted, setHasVoted] = useState(false)
@@ -133,10 +135,10 @@ export default function VotingPage() {
       }
 
       // Count votes for each option
-      const voteCounts: { [key: number]: number } = { 1: 0, 2: 0, 3: 0 }
+      const voteCounts: { [key: number]: number } = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
       if (data && Array.isArray(data)) {
         data.forEach((vote) => {
-          if (vote.option_id >= 1 && vote.option_id <= 3) {
+          if (vote.option_id >= 1 && vote.option_id <= 5) {
             voteCounts[vote.option_id] = (voteCounts[vote.option_id] || 0) + 1
           }
         })
@@ -242,29 +244,16 @@ export default function VotingPage() {
               className={`option-card ${hasVoted ? 'voted' : ''}`}
             >
               <div className="option-image">
-                {option.id === 1 ? (
-                  <img
-                    src="https://github.com/nikita-vanyasin/calendar-conflicts-reporter/raw/master/assets/email-ses-demo.png"
-                    alt="Calendar Conflicts Reporter"
-                    className="option-actual-image"
-                  />
-                ) : option.id === 2 ? (
-                  <img
-                    src="https://www.bhphotovideo.com/cdn-cgi/image/fit=scale-down,width=500,quality=95/https://www.bhphotovideo.com/images/images500x500/amazon_b07xkf5rm3_echo_4th_gen_with_1605694869_1599234.jpg"
-                    alt="Alexa Incident Commander"
-                    className="option-actual-image"
-                  />
-                ) : option.id === 3 ? (
-                  <img
-                    src="https://a-us.storyblok.com/f/1021527/2264x1310/7f32bb11d5/cortex-initiatives-when-scorecards-need-a-deadline_2.webp"
-                    alt="Incident Scorecard Check"
-                    className="option-actual-image"
-                  />
-                ) : (
-                  <div className="placeholder-image">
-                    <span>{option.title}</span>
-                  </div>
-                )}
+                <div className="placeholder-image">
+                  <span>
+                    {option.id === 1 ? 'CCR' :
+                     option.id === 2 ? 'AIC' :
+                     option.id === 3 ? 'ISC' :
+                     option.id === 4 ? 'HMD' :
+                     option.id === 5 ? 'P5' :
+                     option.title}
+                  </span>
+                </div>
               </div>
               
               <div className="option-content">
@@ -275,19 +264,25 @@ export default function VotingPage() {
                     <>Alexa Incident<br />Commander</>
                   ) : option.id === 3 ? (
                     <>Incident Scorecard<br />Check</>
+                  ) : option.id === 4 ? (
+                    <>Heatmap Monitoring<br />Dashboard</>
+                  ) : option.id === 5 ? (
+                    <>Project<br />5</>
                   ) : (
                     option.title
                   )}
                 </h2>
                 <p>{option.description}</p>
-                {(option.id === 1 || option.id === 2 || option.id === 3) && (
+                {option.id <= 4 && (
                   <a
                     href={
                       option.id === 1
                         ? "https://github.com/nikita-vanyasin/calendar-conflicts-reporter"
                         : option.id === 2
                         ? "https://github.com/diverheart/alexa-incident-commander"
-                        : "https://github.com/realpdm/incident-scorecard-check"
+                        : option.id === 3
+                        ? "https://github.com/realpdm/incident-scorecard-check"
+                        : "https://github.com/Drax54/incident-io-heatmap-monitoring"
                     }
                     target="_blank"
                     rel="noopener noreferrer"
